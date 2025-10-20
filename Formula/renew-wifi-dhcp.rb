@@ -3,7 +3,7 @@ class RenewWifiDhcp < Formula
   homepage "https://github.com/oleksandrk-dev/renew-wifi-dhcp"
   license "MIT"
   url "https://github.com/oleksandrk-dev/renew-wifi-dhcp/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "PLACEHOLDER_WILL_UPDATE_AFTER_TAG"
+  sha256 "65d943c3906d560efe5cd2e2fb57f31f0b008fc9fd4f254887fccc0a049ea0dd"
   head "https://github.com/oleksandrk-dev/renew-wifi-dhcp.git", branch: "main"
 
   depends_on "sleepwatcher"
