@@ -11,9 +11,11 @@ brew tap oleksandrk-dev/renew-wifi-dhcp
 # Install the formula (HEAD version until stable release)
 brew install --HEAD renew-wifi-dhcp
 
-# Start the service
-brew services start renew-wifi-dhcp
+# Start the service (requires sudo for DHCP renewal)
+sudo brew services start renew-wifi-dhcp
 ```
+
+**Note:** The service must run as root because the `ipconfig set` commands require elevated privileges to renew DHCP leases.
 
 ## What it does
 
@@ -41,13 +43,13 @@ tail -f /opt/homebrew/var/log/renew-wifi-dhcp.err
 ### Stop the service
 
 ```bash
-brew services stop renew-wifi-dhcp
+sudo brew services stop renew-wifi-dhcp
 ```
 
 ### Uninstall
 
 ```bash
-brew services stop renew-wifi-dhcp
+sudo brew services stop renew-wifi-dhcp
 brew uninstall renew-wifi-dhcp
 brew untap oleksandrk-dev/renew-wifi-dhcp
 ```
