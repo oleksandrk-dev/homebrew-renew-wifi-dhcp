@@ -2,14 +2,8 @@ class RenewWifiDhcp < Formula
   desc "Force Wi-Fi DHCP renew on wake via SleepWatcher (waits for SSID)"
   homepage "https://github.com/oleksandrk-dev/renew-wifi-dhcp"
   license "MIT"
-  version "1.1.0"
-
-  # --- Stable release (recommended for teammates) ---
-  # After tagging, update these two:
-  # url "https://github.com/oleksandrk-dev/renew-wifi-dhcp/archive/refs/tags/v1.1.0.tar.gz"
-  # sha256 "REPLACE_WITH_SHA256"
-
-  # --- Dev installs (optional) ---
+  url "https://github.com/oleksandrk-dev/renew-wifi-dhcp/archive/refs/tags/v1.0.0.tar.gz"
+  sha256 "PLACEHOLDER_WILL_UPDATE_AFTER_TAG"
   head "https://github.com/oleksandrk-dev/renew-wifi-dhcp.git", branch: "main"
 
   depends_on "sleepwatcher"
