@@ -21,10 +21,11 @@ class RenewWifiDhcp < Formula
   end
 
   service do
-    # Wake-only hook
+    # Wake-only hook - requires root for ipconfig commands
     run [Formula["sleepwatcher"].opt_sbin/"sleepwatcher",
          "-V",
          "-w", opt_bin/"renew-wifi-dhcp"]
+    require_root true
     keep_alive true
     environment_variables PATH: std_service_path_env
     log_path var/"log/renew-wifi-dhcp.out"
