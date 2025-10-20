@@ -8,8 +8,8 @@ Automatically renew Wi-Fi DHCP lease on macOS wake to fix connectivity issues.
 # Add the tap
 brew tap oleksandrk-dev/renew-wifi-dhcp
 
-# Install the formula
-brew install renew-wifi-dhcp
+# Install the formula (HEAD version until stable release)
+brew install --HEAD renew-wifi-dhcp
 
 # Start the service
 brew services start renew-wifi-dhcp
