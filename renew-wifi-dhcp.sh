@@ -64,5 +64,16 @@ lease=$(ipconfig getpacket "$wifi_dev" 2>/dev/null | egrep 'yiaddr|server_identi
 [[ -n "$lease" ]] && log "lease:
 $lease"
 
+# Trigger macOS to re-check network connectivity (fixes toolbar icon showing no internet)
+# Switch network location temporarily to force full network re-evaluation
+log "refreshing network status"
+current_location=$(/usr/sbin/networksetup -getcurrentlocation 2>/dev/null || echo "Automatic")
+/usr/sbin/networksetup -createlocation "TempDHCPRenew" populate >/dev/null 2>&1 || true
+/usr/sbin/networksetup -switchtolocation "TempDHCPRenew" >/dev/null 2>&1 || true
+sleep 1
+/usr/sbin/networksetup -switchtolocation "$current_location" >/dev/null 2>&1 || true
+/usr/sbin/networksetup -deletelocation "TempDHCPRenew" >/dev/null 2>&1 || true
+log "network status refreshed"
+
 exit 0
 
