@@ -26,21 +26,24 @@ get_ssid() {
 }
 
 before_ip=$(ipconfig getifaddr "$wifi_dev" 2>/dev/null || true)
-log "device=$wifi_dev before_ip=${before_ip:-<none>} (waiting for Wi-Fi association)"
+log "device=$wifi_dev before_ip=${before_ip:-<none>} (waiting for Wi-Fi link)"
 
-# Wait up to 90s for association (SSID present)
-ssid=""
-for i in {1..90}; do
-  ssid="$(get_ssid || true)"
-  if [[ -n "$ssid" ]]; then
-    log "associated ssid=$ssid (after ${i}s)"
+# Wait up to 30s for Wi-Fi interface to be active (link up)
+# Note: SSID detection doesn't work when running as root, so we check interface status instead
+for i in {1..30}; do
+  status=$(ifconfig "$wifi_dev" | grep "status:" | awk '{print $2}')
+  if [[ "$status" == "active" ]]; then
+    log "Wi-Fi link active (after ${i}s)"
+    # Try to get SSID for logging (may fail as root, that's OK)
+    ssid="$(get_ssid || true)"
+    [[ -n "$ssid" ]] && log "connected to SSID: $ssid"
     break
   fi
   sleep 1
 done
 
-if [[ -z "$ssid" ]]; then
-  log "WARN: no SSID after 90s; skipping renew"
+if [[ "$status" != "active" ]]; then
+  log "WARN: Wi-Fi link not active after 30s; skipping renew"
   exit 0
 fi
 
